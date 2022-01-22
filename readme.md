@@ -1,8 +1,8 @@
-# FFBMM
+# FfBmM
 
-## 名称FFBMM
+## 名称FfBmM
 
-ffbmm firefox bookmarks move移动工具。
+FfBmM firefox bookmarks move移动工具。
 
 ## 起因
 
