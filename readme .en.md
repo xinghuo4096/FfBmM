@@ -79,7 +79,6 @@ Metadata is the data describing data, which can be used to assist in identifying
 <meta property="og:description" content="此快速参考介绍了如何使用正则表达式模式匹配输入文本。 模式具有一个或多个字符文本、运算符或构造。" />
 <meta property="og:image" content="https://docs.microsoft.com/dotnet/media/dot-net-cross-platform.png" />
 <meta property="og:image:alt" content="正则表达式语言 - 快速参考 | Microsoft Docs" />
-
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@docsmsft" />
 <meta name="color-scheme" content="light dark">
@@ -128,7 +127,6 @@ Metadata is the data describing data, which can be used to assist in identifying
 <!--[if lte IE 9]>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <![endif]-->
-
 <meta name="apple-itunes-app" content="app-id=587995732"/>
 <meta name="twitter:app:id:googleplay" content="com.intel.ark"/>
 <meta name="twitter:card" content="summary"/>
