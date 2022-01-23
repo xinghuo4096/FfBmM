@@ -6,9 +6,9 @@ FfBmM firefox bookmarks move app。
 
 ## Cause
 
-There is an export file of Firefox bookmarks in JSON format, similar to "bookmarks-2022-01-21. JSON", which contains more than 1500 bookmarks.
+There is a bookmark backup file of Firefox in JSON format, similar to "bookmarks-2022-01-21. JSON", with more than 1500 bookmarks.
 
-Bookmarks sometimes have different contents of the same website, and are distributed in different bookmark folders.
+Some bookmarks record different contents of the same website and are distributed in different bookmark folders.
 
 ### Bookmark structure example
 
