@@ -1,7 +1,7 @@
 import os
 import sys
-
-from pffbklibs import helloLib
+import ffbklibs
+from ffbklibs import helloLib
 
 
 def test_test():
