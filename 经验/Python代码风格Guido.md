@@ -1,5 +1,25 @@
 # Python之父Guido推荐的规范
 
+## Modules
+
+* Public：lower_with_under
+* Internal： _lower_with_under
+  
+## ddd
+
+* pubic:
+* Internal：
+
+## Packages
+
+* pubic:
+* Internal： lower_with_under
+
+---
+![Python代码风格](Python代码风格Guido.jpg)
+
+---
+
 | Type                       | Public             | Internal                                                        |
 | -------------------------- | ------------------ | --------------------------------------------------------------- |
 | Modules                    | lower_with_under   | _lower_with_under                                               |
