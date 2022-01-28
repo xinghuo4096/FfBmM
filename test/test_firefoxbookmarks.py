@@ -14,8 +14,7 @@ def test_bookmark():
     assert len(s) > 0
 
     bmroot = Json2Bookmarks(s)
-    bms = BookMarks
-    flds = Folders
+
     assert type(bmroot) == MozPlaceContainer
     assert isinstance(bmroot, MozPlaceContainer)
     assert bmroot.guid == "root________"
