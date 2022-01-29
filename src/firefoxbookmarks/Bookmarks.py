@@ -1,3 +1,6 @@
+from ast import keyword
+from ctypes.wintypes import tagSIZE
+from inspect import TPFLAGS_IS_ABSTRACT
 import os
 import json
 import codecs
@@ -17,7 +20,7 @@ class MozBaseItem(object):
         self.last_modified = lastModified
         self.id = id
         self.type_code = typeCode
-        self.Type = type
+        self.type = type
 
     def dict2mozBaseItem(d):
         return MozBaseItem(d['guid'], d['title'], d['index'], d['dateAdded'],
@@ -47,16 +50,31 @@ class MozPlaceContainer(MozBaseItem):
 class MozPlace(MozBaseItem):
 
     def __init__(self, guid, title, index, dateAddedid, lastModified, id,
-                 typeCode, type, iconuri, uri):
+                 typeCode, type, uri, iconuri, tags, keyword, postData):
         super().__init__(guid, title, index, dateAddedid, lastModified, id,
                          typeCode, type)
         self.iconuri = iconuri
         self.uri = uri
+        self.tags = tags
+        self.keyword = keyword
+        self.post_data = postData
 
     def dict2MozPlace(d):
-        return MozPlace(d['guid'], d['title'], d['index'], d['dateAdded'],
-                        d['lastModified'], d['id'], d['typeCode'], d['type'],
-                        d.get('iconuri', ''), d['uri'])
+        return MozPlace(
+            d['guid'],
+            d['title'],
+            d['index'],
+            d['dateAdded'],
+            d['lastModified'],
+            d['id'],
+            d['typeCode'],
+            d['type'],
+            d.get('iconuri', ''),
+            d['uri'],
+            d.get('tags', ''),
+            d.get('keyword', ''),
+            d.get('postData', ''),
+        )
 
 
 class MozSeparator(MozBaseItem):
