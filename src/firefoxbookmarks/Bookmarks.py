@@ -7,6 +7,9 @@ import codecs
 
 BookMarks = []
 Folders = []
+BookMarksRoot = object
+NewBookMarksRoot = object
+ROOTSGUID = ["menu________", "toolbar_____", "unfiled_____", "mobile______"]
 
 
 class MozBaseItem(object):
@@ -69,8 +72,8 @@ class MozPlace(MozBaseItem):
             d['id'],
             d['typeCode'],
             d['type'],
-            d.get('iconuri', ''),
             d['uri'],
+            d.get('iconuri', ''),
             d.get('tags', ''),
             d.get('keyword', ''),
             d.get('postData', ''),
@@ -92,6 +95,7 @@ class MozSeparator(MozBaseItem):
 
 def Json2Bookmarks(s):
     root = json.loads(s, object_hook=BookmarksFacory)
+    BookMarksRoot = root
     return root
 
 
@@ -110,6 +114,35 @@ def BookmarksFacory(d):
             else:
                 raise "unkonw type:" + t1
     return ret
+
+
+def ListBookmarks(bmobj, nowfolder):
+
+    if type(bmobj) == MozPlace:
+        assert isinstance(bmobj, MozPlace)
+        if nowfolder not in bmobj.tags:
+            if (bmobj.tags == ''):
+                bmobj.tags = nowfolder
+            else:
+                bmobj.tags = bmobj.tags + ',' + nowfolder
+    else:
+        if type(bmobj) == MozPlaceContainer:
+            assert isinstance(bmobj, MozPlaceContainer)
+
+            if (bmobj.guid not in ROOTSGUID) and (bmobj.title
+                                                  not in nowfolder):
+                if nowfolder == '':
+                    nowfolder = bmobj.title
+                else:
+                    nowfolder = nowfolder + ',' + bmobj.title
+                print(nowfolder)
+            for obj in bmobj.children:
+                ListBookmarks(obj, nowfolder)
+        else:
+            if type(bmobj) == MozSeparator:
+                pass
+            else:
+                raise "unkonw type:" + type(bmobj)
 
 
 #------------------------

@@ -2,7 +2,7 @@ import os
 import json
 import codecs
 
-from firefoxbookmarks.Bookmarks import BookMarks, Folders, BookmarksFacory, Json2Bookmarks, MozPlace, MozPlaceContainer
+from firefoxbookmarks.Bookmarks import BookMarks, Folders, BookmarksFacory, Json2Bookmarks, ListBookmarks, MozPlace, MozPlaceContainer
 
 
 def test_bookmark():
@@ -29,6 +29,17 @@ def test_bookmark():
         assert isinstance(c1, MozPlaceContainer)
         assert c1.guid in roots
         assert c1.guid == roots[i]
+    ListBookmarks(bmroot.children[0], '')
 
+    c1 = bmroot.children[0]
+    assert isinstance(c1, MozPlaceContainer)
+    assert c1.guid == roots[0]
+    b1 = bmroot.children[0].children[0].children[2].children[0]
+    assert isinstance(b1, MozPlace)
+    assert b1.tags == 'News,财经'
+    assert b1.uri == 'https://finance.eastmoney.com/a/czqyw.html'
+
+
+#----
 
 test_bookmark()
