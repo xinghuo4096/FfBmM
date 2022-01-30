@@ -4,6 +4,14 @@
 
 FfBmM firefox bookmarks move移动工具。
 
+## 效果
+
+### 展示书签
+
+文件夹outdata下html文件效果
+
+![展示书签效果](show1.jpg)
+
 ## 起因
 
 有一个firefox的书签备份文件，json格式，类似“bookmarks-2022-01-21.json”，里有1500多条书签。

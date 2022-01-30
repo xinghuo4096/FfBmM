@@ -4,6 +4,13 @@
 
 FfBmM firefox bookmarks move app。
 
+## Show
+
+### ShowBookmark
+
+Folder ->outdata
+![ShowBookmark](show1.jpg)
+
 ## Cause
 
 There is a bookmark backup file of Firefox in JSON format, similar to "bookmarks-2022-01-21. JSON", with more than 1500 bookmarks.
