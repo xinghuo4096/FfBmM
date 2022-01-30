@@ -4,6 +4,7 @@ from inspect import TPFLAGS_IS_ABSTRACT
 import os
 import json
 import codecs
+from urllib.parse import urlparse
 
 BookMarks = []
 Folders = []
@@ -24,11 +25,23 @@ class MozBaseItem(object):
         self.id = id
         self.type_code = typeCode
         self.type = type
+        if len(title) > 16:
+            self.name = title[0:16] + ".."
+        else:
+            self.name = title
+
+        self.value = guid
 
     def dict2mozBaseItem(d):
         return MozBaseItem(d['guid'], d['title'], d['index'], d['dateAdded'],
                            d['lastModified'], d['id'], d['typeCode'],
                            d['type'])
+
+    def toJSON(self):
+        return json.dumps(self,
+                          default=lambda o: o.__dict__,
+                          sort_keys=True,
+                          indent=0)
 
 
 class MozPlaceContainer(MozBaseItem):
@@ -61,6 +74,9 @@ class MozPlace(MozBaseItem):
         self.tags = tags
         self.keyword = keyword
         self.post_data = postData
+
+        if len(self.name) < 1 and len(self.uri) > 1:
+            self.name = urlparse(uri).hostname
 
     def dict2MozPlace(d):
         return MozPlace(

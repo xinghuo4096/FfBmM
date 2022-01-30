@@ -39,6 +39,10 @@ def test_bookmark():
     assert b1.tags == 'News,财经'
     assert b1.uri == 'https://finance.eastmoney.com/a/czqyw.html'
 
+    b2 = bmroot.children[0].children[1].children[3].children[0]
+    assert b2.uri == 'https://lishi.tianqi.com/baoding/202001.html'
+    assert '历史天气' in b2.tags
+
 
 #----
 
