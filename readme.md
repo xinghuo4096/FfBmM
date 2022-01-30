@@ -8,9 +8,13 @@ FfBmM firefox bookmarks move移动工具。
 
 ### 展示书签
 
-文件夹outdata下html文件效果
+运行test目录下的test_showbookmarks.py
+在文件夹outdata下会生成html，浏览器运行效果
 
+- 默认展现书签层数为3
 ![展示书签效果](show1.jpg)
+- 展开折叠的书签
+![展示书签效果](show2.jpg)
 
 ## 起因
 

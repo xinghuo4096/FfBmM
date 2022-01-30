@@ -8,8 +8,15 @@ FfBmM firefox bookmarks move app。
 
 ### ShowBookmark
 
-Folder ->outdata
+Run **test_showbookmarks.py** in the **test** folder.
+It will generate an html file in the **outdata** folder.
+Open it in a browser and you will see the graphical display of the bookmarks
+The effect is similar to the following screenshot
+
+- The default number of bookmark levels is 3
 ![ShowBookmark](show1.jpg)
+- Expanding collapsed bookmarks
+![ShowBookmark](show2.jpg)
 
 ## Cause
 

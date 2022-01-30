@@ -2,7 +2,7 @@ import codecs
 import json
 import os
 
-from firefoxbookmarks.Bookmarks import Json2Bookmarks, MozPlaceContainer
+from firefoxbookmarks.Bookmarks import BookMarks, Folders, Json2Bookmarks, MozPlaceContainer
 from firefoxbookmarks.showbookmarks import echar_ffbmtree
 import time
 
@@ -78,13 +78,14 @@ def test_show():
     assert isinstance(bmroot, MozPlaceContainer)
 
     bmroot.value = 0
+    bmroot.name = "Root"
 
     s2 = bmroot.toJSON()
     a1 = json.loads(s2)
     a2 = [a1]
-    print(type(data1))
-    print(type(a1))
-    echar_ffbmtree(a2)
+    w = len(Folders) * 200
+    h = len(BookMarks) / len(Folders) * 200
+    echar_ffbmtree(a2, 1920, 1080)
 
 
 test_show()
