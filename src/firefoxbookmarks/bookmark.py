@@ -52,6 +52,10 @@ class MozPlaceContainer(MozBaseItem):
                          typeCode, type)
         self.root = root
         self.children = children
+        if self.title is not None:
+            self.name = self.title
+        if self.root is not None and root != '':
+            self.name = root
 
     def dict2MozPlaceContainer(d):
 
@@ -102,6 +106,8 @@ class MozSeparator(MozBaseItem):
                  typeCode, type):
         super().__init__(guid, title, index, dateAddedid, lastModified, id,
                          typeCode, type)
+        self.name = '|'
+        self.title = 'Separator'
 
     def dict2mozeparator(d):
         return MozSeparator(d['guid'], d['title'], d['index'], d['dateAdded'],
@@ -132,7 +138,7 @@ def BookmarksFacory(d):
     return ret
 
 
-def ListBookmarks(bmobj, nowfolder):
+def AddFolderToBookmark(bmobj, nowfolder):
 
     if type(bmobj) == MozPlace:
         assert isinstance(bmobj, MozPlace)
@@ -153,7 +159,7 @@ def ListBookmarks(bmobj, nowfolder):
                     nowfolder = nowfolder + ',' + bmobj.title
                 print(nowfolder)
             for obj in bmobj.children:
-                ListBookmarks(obj, nowfolder)
+                AddFolderToBookmark(obj, nowfolder)
         else:
             if type(bmobj) == MozSeparator:
                 pass
