@@ -17,6 +17,7 @@ FfBmM firefox bookmarks move移动工具。
 ![展示书签效果](show2.jpg)
 - 大约1500个书签的展示效果
 ![1500书签效果](show3.jpg)
+细节效果
 ![1500书签效果](show4.jpg)
 
 ## 起因

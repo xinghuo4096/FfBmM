@@ -19,6 +19,7 @@ The effect is similar to the following screenshot
 ![ShowBookmark](show2.jpg)
 - Display effect of about 1500 bookmarks
 ![1500Bookmark](show3.jpg)
+Detail 
 ![1500Bookmark](show4.jpg)
 
 ## Cause

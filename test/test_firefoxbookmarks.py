@@ -1,8 +1,10 @@
 import os
 import json
 import codecs
+from firefoxbookmarks.MozPlace import MozPlace
+from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
 
-from firefoxbookmarks.bookmark import BookMarks, Folders, BookmarksFacory, Json2Bookmarks, AddFolderToBookmark, MozPlace, MozPlaceContainer
+from firefoxbookmarks.bookmark import AddFolderToBookmark, Json2Bookmarks
 
 
 def test_bookmark():
@@ -45,5 +47,3 @@ def test_bookmark():
 
 
 #----
-
-test_bookmark()

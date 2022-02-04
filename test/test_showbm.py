@@ -1,8 +1,9 @@
 import codecs
 import json
 import os
+from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
+from firefoxbookmarks.bookmark import AddFolderToBookmark, BookMarks, Folders, Json2Bookmarks
 
-from firefoxbookmarks.bookmark import AddFolderToBookmark, BookMarks, Folders, Json2Bookmarks, MozPlaceContainer
 from firefoxbookmarks.show import echar_ffbmtree
 import time
 
