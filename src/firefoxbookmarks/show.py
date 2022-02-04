@@ -8,7 +8,7 @@ from firefoxbookmarks.bookmark import BookMarks
 from pyecharts.globals import CurrentConfig
 
 
-def echar_ffbmtree(data, w=1280, h=720):
+def echar_ffbmtree(data, tree_depth=2, w=1280, h=720):
     CurrentConfig.ONLINE_HOST = "https://cdn.jsdelivr.net/npm/echarts@latest/dist/"
     ffbmformater = """
         function (params) {   
@@ -38,10 +38,11 @@ def echar_ffbmtree(data, w=1280, h=720):
     ctree.set_global_opts(title_opts=opts.TitleOpts(title='Bookmarks show'))
     ctree.add('书签',
               data,
+              orient='LR',
               pos_top='1%',
               pos_bottom='1%',
               is_roam=True,
-              initial_tree_depth=2,
+              initial_tree_depth=tree_depth,
               layout='orthogonal',
               edge_fork_position='190%',
               itemstyle_opts=opts.ItemStyleOpts(color='red'),

@@ -157,7 +157,6 @@ def AddFolderToBookmark(bmobj, nowfolder):
                     nowfolder = bmobj.title
                 else:
                     nowfolder = nowfolder + ',' + bmobj.title
-                print(nowfolder)
             for obj in bmobj.children:
                 AddFolderToBookmark(obj, nowfolder)
         else:
