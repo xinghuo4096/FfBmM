@@ -1,21 +1,15 @@
-import os
-import json
 import codecs
+import json
+import os
+
 from firefoxbookmarks.MozPlace import MozPlace
 from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
-
-from firefoxbookmarks.bookmark import AddFolderToBookmark, Json2Bookmarks
+from firefoxbookmarks.Manager import Manager
 
 
 def test_bookmark():
-    s1 = os.getcwd()
-    path2 = "test/bookmarks-test.json"
-    f = codecs.open(path2, "r", "utf-8")
-    s = f.read()
-    f.close()
-    assert len(s) > 0
-
-    bmroot = Json2Bookmarks(s)
+    bm = loadbms()
+    bmroot = bm.root
 
     assert type(bmroot) == MozPlaceContainer
     assert isinstance(bmroot, MozPlaceContainer)
@@ -31,7 +25,13 @@ def test_bookmark():
         assert isinstance(c1, MozPlaceContainer)
         assert c1.guid in roots
         assert c1.guid == roots[i]
-    AddFolderToBookmark(bmroot.children[0], '')
+
+    b1 = bmroot.children[0].children[0].children[2].children[0]
+    assert isinstance(b1, MozPlace)
+    assert b1.tags == ''
+    assert b1.uri == 'https://finance.eastmoney.com/a/czqyw.html'
+
+    bm.AddFolderToBookmark(bmroot.children[0], '')
 
     c1 = bmroot.children[0]
     assert isinstance(c1, MozPlaceContainer)
@@ -46,4 +46,47 @@ def test_bookmark():
     assert '历史天气' in b2.tags
 
 
+def loadbms() -> Manager:
+    s1 = os.getcwd()
+    path2 = "test/bookmarks-test.json"
+    f = codecs.open(path2, "r", "utf-8")
+    s = f.read()
+    f.close()
+    assert len(s) > 0
+    bms = Manager()
+    bms.Json2Bookmarks(s)
+    return bms
+
+
+def test_MaxBookmarksId():
+    bms = loadbms()
+    maxid = bms.MaxBookmarksId()
+    assert maxid == 36
+
+    root = bms.root
+    assert isinstance(root, MozPlaceContainer)
+    assert root.guid == 'root________'
+    children_len = len(root.children)
+    children_max_index = root.MaxChildrenIndex()
+    assert children_len == 4
+    assert children_max_index == 4
+
+    item = root.children[0]
+    assert isinstance(item, MozPlaceContainer)
+    assert item.title == 'menu'
+    children_len = len(item.children)
+    children_max_index = item.MaxChildrenIndex()
+    assert children_len == 3
+    assert children_max_index == 2
+
+    item = item.children[0]
+    assert isinstance(item, MozPlaceContainer)
+    assert item.title.lower() == 'news'
+    children_len = len(item.children)
+    children_max_index = item.MaxChildrenIndex()
+    assert children_len == 3
+    assert children_max_index == 2
+
+
 #----
+test_MaxBookmarksId()

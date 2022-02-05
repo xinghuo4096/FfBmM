@@ -3,8 +3,6 @@ from pyecharts.charts import Tree
 from pyecharts import options as opts
 from pyecharts.commons import utils
 from pyecharts.globals import ThemeType
-
-from firefoxbookmarks.bookmark import BookMarks
 from pyecharts.globals import CurrentConfig
 
 

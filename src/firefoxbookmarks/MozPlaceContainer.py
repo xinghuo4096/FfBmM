@@ -22,3 +22,11 @@ class MozPlaceContainer(MozBaseItem):
                                  d['dateAdded'], d['lastModified'], d['id'],
                                  d['typeCode'], d['type'], d.get('root', ''),
                                  d.get('children', []))
+
+    def MaxChildrenIndex(self) -> int:
+        ret = 0
+        for item in self.children:
+            assert isinstance(item, MozBaseItem)
+            if int(item.index) > ret:
+                ret = int(item.index)
+        return ret
