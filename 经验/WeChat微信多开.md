@@ -8,7 +8,7 @@
 - start
   启动一个单独的窗口以运行指定的程序或命令。
 - /d
-  启动目录
+  微信启动目录
 - "C:\Program Files (x86)\Tencent\WeChat\"
   wechat微信安装目录
 - WeChat.exe
