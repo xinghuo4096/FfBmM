@@ -1,4 +1,4 @@
-from firefoxbookmarks.MozBaseItem import MozBaseItem
+from  firefoxbookmarks.MozBaseItem import MozBaseItem
 
 
 class MozPlaceContainer(MozBaseItem):

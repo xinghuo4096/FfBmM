@@ -39,7 +39,7 @@ def echar_ffbmtree(data, tree_depth=2, w=1280, h=720):
               orient='LR',
               pos_top='1%',
               pos_bottom='1%',
-              is_roam=True,
+              is_roam=False,
               initial_tree_depth=tree_depth,
               layout='orthogonal',
               edge_fork_position='190%',

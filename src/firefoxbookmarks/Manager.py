@@ -1,11 +1,9 @@
 import json
-from urllib.parse import urlparse
 
 from firefoxbookmarks.MozBaseItem import MozBaseItem
 from firefoxbookmarks.MozPlace import MozPlace
 from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
 from firefoxbookmarks.MozSeparator import MozSeparator
-
 
 class Manager(object):
     """docstring for Manager."""

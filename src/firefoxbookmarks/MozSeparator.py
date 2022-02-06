@@ -1,4 +1,4 @@
-from firefoxbookmarks.MozBaseItem import MozBaseItem
+from  firefoxbookmarks.MozBaseItem import MozBaseItem
 class MozSeparator(MozBaseItem):
 
     def __init__(self, guid, title, index, dateAddedid, lastModified, id,

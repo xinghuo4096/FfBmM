@@ -1,18 +1,15 @@
 import codecs
 import json
 import os
-
-from firefoxbookmarks.MozPlace import MozPlace
-from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
-from firefoxbookmarks.Manager import Manager
+import firefoxbookmarks
 
 
 def test_bookmark():
     bm = loadbms()
     bmroot = bm.root
 
-    assert type(bmroot) == MozPlaceContainer
-    assert isinstance(bmroot, MozPlaceContainer)
+    assert type(bmroot) == firefoxbookmarks.MozPlaceContainer
+    assert isinstance(bmroot, firefoxbookmarks.MozPlaceContainer)
     assert bmroot.guid == "root________"
 
     children = bmroot.children
@@ -21,23 +18,23 @@ def test_bookmark():
     roots = ["menu________", "toolbar_____", "unfiled_____", "mobile______"]
     for i in range(len(children)):
         c1 = children[i]
-        assert type(c1) == MozPlaceContainer
-        assert isinstance(c1, MozPlaceContainer)
+        assert type(c1) == firefoxbookmarks.MozPlaceContainer
+        assert isinstance(c1, firefoxbookmarks.MozPlaceContainer)
         assert c1.guid in roots
         assert c1.guid == roots[i]
 
     b1 = bmroot.children[0].children[0].children[2].children[0]
-    assert isinstance(b1, MozPlace)
+    assert isinstance(b1, firefoxbookmarks.MozPlace)
     assert b1.tags == ''
     assert b1.uri == 'https://finance.eastmoney.com/a/czqyw.html'
 
     bm.AddFolderToBookmark(bmroot.children[0], '')
 
     c1 = bmroot.children[0]
-    assert isinstance(c1, MozPlaceContainer)
+    assert isinstance(c1, firefoxbookmarks.MozPlaceContainer)
     assert c1.guid == roots[0]
     b1 = bmroot.children[0].children[0].children[2].children[0]
-    assert isinstance(b1, MozPlace)
+    assert isinstance(b1, firefoxbookmarks.MozPlace)
     assert b1.tags == 'News,财经'
     assert b1.uri == 'https://finance.eastmoney.com/a/czqyw.html'
 
@@ -46,14 +43,14 @@ def test_bookmark():
     assert '历史天气' in b2.tags
 
 
-def loadbms() -> Manager:
+def loadbms() -> firefoxbookmarks.Manager:
     s1 = os.getcwd()
     path2 = "test/bookmarks-test.json"
     f = codecs.open(path2, "r", "utf-8")
     s = f.read()
     f.close()
     assert len(s) > 0
-    bms = Manager()
+    bms = firefoxbookmarks.Manager()
     bms.Json2Bookmarks(s)
     return bms
 
@@ -64,7 +61,7 @@ def test_MaxBookmarksId():
     assert maxid == 36
 
     root = bms.root
-    assert isinstance(root, MozPlaceContainer)
+    assert isinstance(root, firefoxbookmarks.MozPlaceContainer)
     assert root.guid == 'root________'
     children_len = len(root.children)
     children_max_index = root.MaxChildrenIndex()
@@ -72,7 +69,7 @@ def test_MaxBookmarksId():
     assert children_max_index == 4
 
     item = root.children[0]
-    assert isinstance(item, MozPlaceContainer)
+    assert isinstance(item, firefoxbookmarks.MozPlaceContainer)
     assert item.title == 'menu'
     children_len = len(item.children)
     children_max_index = item.MaxChildrenIndex()
@@ -80,7 +77,7 @@ def test_MaxBookmarksId():
     assert children_max_index == 2
 
     item = item.children[0]
-    assert isinstance(item, MozPlaceContainer)
+    assert isinstance(item, firefoxbookmarks.MozPlaceContainer)
     assert item.title.lower() == 'news'
     children_len = len(item.children)
     children_max_index = item.MaxChildrenIndex()
