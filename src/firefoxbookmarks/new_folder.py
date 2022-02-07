@@ -1,9 +1,8 @@
-from random import Random
 import time
 import uuid
+from random import Random
 
-from  firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
- 
+from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
 
 
 def getguid(name):
