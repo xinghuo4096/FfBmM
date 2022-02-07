@@ -1,4 +1,4 @@
-from  firefoxbookmarks.MozBaseItem import MozBaseItem
+from firefoxbookmarks.MozBaseItem import MozBaseItem
 
 
 class MozPlaceContainer(MozBaseItem):
@@ -30,3 +30,7 @@ class MozPlaceContainer(MozBaseItem):
             if int(item.index) > ret:
                 ret = int(item.index)
         return ret
+
+    def AddChildern(self, c):
+        if (isinstance(self.children, list)):
+            self.children.append(c)

@@ -1,17 +1,19 @@
+import codecs
 import datetime
-import time
 import os
 import sys
-a=os.getcwd()
-b=os.getenv('pythonpath')
-c=sys.path
+import time
+
 import firefoxbookmarks
 
+a = os.getcwd()
+b = os.getenv('pythonpath')
+c = sys.path
 
 
 def test_newuuid():
     name = "test"
-    str1 =firefoxbookmarks.getguid(name)
+    str1 = firefoxbookmarks.getguid(name)
     assert len(str1) > 0
     assert len(str1) == 12
 
@@ -29,7 +31,7 @@ def test_newfolder():
 
     name = "newFolder"
     folder = firefoxbookmarks.newfolder(name, 1, 2)
-    assert isinstance(folder,firefoxbookmarks.MozPlaceContainer)
+    assert isinstance(folder, firefoxbookmarks.MozPlaceContainer)
     assert isinstance(folder, firefoxbookmarks.MozBaseItem)
     assert len(folder.guid) > 0
     assert len(folder.guid) == 12
@@ -37,6 +39,38 @@ def test_newfolder():
     assert len(folder.last_modified) == 16
 
 
-#--------------
+def test_addbookmark():
+    bms = loadbms()
+    root = bms.root
+    assert isinstance(root, firefoxbookmarks.MozPlaceContainer)
+    assert root.title == 'root________'
+    assert root.guid == 'placesRoot'
 
-test_newuuid()
+    menu = root.children[0]
+    assert isinstance(menu, firefoxbookmarks.MozPlaceContainer)
+    assert menu.title == 'menu'
+
+    news = menu.children[0]
+    assert isinstance(news, firefoxbookmarks.MozPlaceContainer)
+    assert isinstance(news.title, str)
+    assert news.title.lower == 'news'
+
+    bd = news.children[0]
+    assert isinstance(bd, firefoxbookmarks.MozPlace)
+    assert isinstance(bd.uri, str)
+    assert news.uri.lower == 'http://news.baidu.com/'
+
+    # TODO 增加文件夹，增加书签
+
+
+def loadbms() -> firefoxbookmarks.Manager:
+    s1 = os.getcwd()
+    path2 = "tests/bookmarks-test.json"
+    f = codecs.open(path2, "r", "utf-8")
+    s = f.read()
+    f.close()
+    assert len(s) > 0
+    bms = firefoxbookmarks.Manager()
+    bms.Json2Bookmarks(s)
+    return bms
+# --------------
