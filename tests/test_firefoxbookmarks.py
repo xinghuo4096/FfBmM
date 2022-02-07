@@ -45,7 +45,7 @@ def test_bookmark():
 
 def loadbms() -> firefoxbookmarks.Manager:
     s1 = os.getcwd()
-    path2 = "test/bookmarks-test.json"
+    path2 = "tests/bookmarks-test.json"
     f = codecs.open(path2, "r", "utf-8")
     s = f.read()
     f.close()

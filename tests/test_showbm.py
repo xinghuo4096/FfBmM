@@ -11,9 +11,9 @@ localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 def test_showbm():
     s1 = os.getcwd()
     path1 = 'z:/test/a.json'
-    path2 = "test/bookmarks-test.json"
+    path2 = "tests/bookmarks-test.json"
 
-    f = codecs.open(path1, "r", "utf-8")
+    f = codecs.open(path2, "r", "utf-8")
     s = f.read()
     f.close()
 
