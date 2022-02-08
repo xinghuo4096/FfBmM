@@ -1,10 +1,13 @@
 import codecs
+import copy
 import datetime
+import json
 import os
 import sys
 import time
 
 import firefoxbookmarks
+from firefoxbookmarks.MozBaseItem import MozBaseItem
 
 a = os.getcwd()
 b = os.getenv('pythonpath')
@@ -43,8 +46,8 @@ def test_addbookmark():
     bms = loadbms()
     root = bms.root
     assert isinstance(root, firefoxbookmarks.MozPlaceContainer)
-    assert root.title == 'root________'
-    assert root.guid == 'placesRoot'
+    assert root.guid == 'root________'
+    assert root.root == 'placesRoot'
 
     menu = root.children[0]
     assert isinstance(menu, firefoxbookmarks.MozPlaceContainer)
@@ -53,14 +56,54 @@ def test_addbookmark():
     news = menu.children[0]
     assert isinstance(news, firefoxbookmarks.MozPlaceContainer)
     assert isinstance(news.title, str)
-    assert news.title.lower == 'news'
+    assert news.title.lower() == 'news'
 
     bd = news.children[0]
     assert isinstance(bd, firefoxbookmarks.MozPlace)
     assert isinstance(bd.uri, str)
-    assert news.uri.lower == 'http://news.baidu.com/'
+    assert bd.uri.lower() == 'http://news.baidu.com/'
 
-    # TODO 增加文件夹，增加书签
+
+def test_addBookmark():
+
+    bms = loadbms()
+    root = bms.root
+    assert isinstance(root, firefoxbookmarks.MozPlaceContainer)
+    maxid = bms.MaxBookmarksId()
+
+    name = "newFolder"
+    maxid += 1
+    folder = firefoxbookmarks.newfolder(name, 1, maxid)
+    menu = root.children[0]
+
+    news = menu.children[0]
+    bd = news.children[0]
+    assert isinstance(bd, MozBaseItem)
+    bd2 = copy.deepcopy(bd)
+    bd2.id += maxid
+    # folder.AddChildern(bd)
+
+    if (isinstance(menu, firefoxbookmarks.MozPlaceContainer)):
+        # menu.AddChildern(folder)
+        pass
+
+    js = bms.root
+    s1 = root.toJSON()
+    js3 = s1
+    #js3 = js3.replace('"tags": "",', '').replace('"keyword": "",', '').replace(
+    #    '"post_data": ""', '').replace('"post_data": null', '').replace('"postData": null', '').replace('date_added', 'dateAdded').replace('last_modified', 'lastModified').replace('type_code', 'typeCode').replace(', "children": []', '')
+    js3 = js3.replace('"tags": "",', '').replace('"keyword": "",', '')
+    js3 = js3.encode('utf-8').decode("unicode_escape")
+
+    path2 = "outdata/new-bookmarks-test.json"
+    f = codecs.open(path2, "w", "utf-8")
+    s = f.write(js3)
+    f.close()
+
+    assert len(js3) > 0
+    #TODO 修改MoaBaseItem2json 或者date_added    
+    #TODO 增加测试 增加书签 
+
 
 
 def loadbms() -> firefoxbookmarks.Manager:
@@ -73,4 +116,7 @@ def loadbms() -> firefoxbookmarks.Manager:
     bms = firefoxbookmarks.Manager()
     bms.Json2Bookmarks(s)
     return bms
+
+
 # --------------
+test_addBookmark()

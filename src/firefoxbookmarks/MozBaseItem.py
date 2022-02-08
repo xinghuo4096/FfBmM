@@ -28,5 +28,5 @@ class MozBaseItem(object):
     def toJSON(self):
         return json.dumps(self,
                           default=lambda o: o.__dict__,
-                          sort_keys=True,
-                          indent=0)
+                          sort_keys=False,
+                          indent=4)

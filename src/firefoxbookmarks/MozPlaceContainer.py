@@ -24,7 +24,7 @@ class MozPlaceContainer(MozBaseItem):
                                  d.get('children', []))
 
     def MaxChildrenIndex(self) -> int:
-        ret = 0
+        ret = -1
         for item in self.children:
             assert isinstance(item, MozBaseItem)
             if int(item.index) > ret:
@@ -32,5 +32,7 @@ class MozPlaceContainer(MozBaseItem):
         return ret
 
     def AddChildern(self, c):
-        if (isinstance(self.children, list)):
-            self.children.append(c)
+        assert isinstance(self.children, list)
+        assert isinstance(c,MozBaseItem)
+        c.index=self.MaxChildrenIndex()+1
+        self.children.append(c)
