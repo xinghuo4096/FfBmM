@@ -58,7 +58,7 @@ class Manager(object):
         root = json.dumps(self,)  
         self.root = root
         return self.root
-    def AddFolderToBookmark(self, bmobj, nowfolder):
+    def AddTagsToBookmark(self, bmobj, nowfolder):
 
         if type(bmobj) == MozPlace:
             assert isinstance(bmobj, MozPlace)
@@ -79,7 +79,7 @@ class Manager(object):
                     else:
                         nowfolder = nowfolder + ',' + bmobj.title
                 for obj in bmobj.children:
-                    self.AddFolderToBookmark(obj, nowfolder)
+                    self.AddTagsToBookmark(obj, nowfolder)
             else:
                 if type(bmobj) == MozSeparator:
                     pass

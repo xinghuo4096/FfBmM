@@ -64,14 +64,17 @@ def test_addbookmark():
     assert bd.uri.lower() == 'http://news.baidu.com/'
 
 
-def test_addBookmark():
+def test_addBookmarkToFolder():
 
     bms = loadbms()
     root = bms.root
+    
+    bms.AddTagsToBookmark(root,'')
+
     assert isinstance(root, firefoxbookmarks.MozPlaceContainer)
     maxid = bms.MaxBookmarksId()
 
-    name = "newFolder"
+    name = "newFolder-"+str(time.ctime())
     maxid += 1
     folder = firefoxbookmarks.newfolder(name, 1, maxid)
     menu = root.children[0]
@@ -83,16 +86,16 @@ def test_addBookmark():
     bd2 = copy.deepcopy(bd)
     maxid += 1
     bd2.id = maxid
-    bd2.guid=firefoxbookmarks.getguid(bd2.uri)
+    bd2.guid = firefoxbookmarks.getguid(bd2.uri)
     folder.AddChildern(bd2)
     if (isinstance(menu, firefoxbookmarks.MozPlaceContainer)):
         menu.AddChildern(folder)
         pass
-    #menu.AddChildern(bd2)
+
     js = bms.root
+
     s1 = root.toJSON()
-    js3 = s1  
-     
+    js3 = s1
 
     path2 = "outdata/new-bookmarks-test.json"
     f = codecs.open(path2, "w", "utf-8")
@@ -101,10 +104,9 @@ def test_addBookmark():
     assert len(js3) > 0
 
 
-
-
 def loadbms() -> firefoxbookmarks.Manager:
     s1 = os.getcwd()
+    path1 = "z:/test/a.json"
     path2 = "tests/bookmarks-test.json"
     f = codecs.open(path2, "r", "utf-8")
     s = f.read()
@@ -116,4 +118,4 @@ def loadbms() -> firefoxbookmarks.Manager:
 
 
 # --------------
-test_addBookmark()
+test_addBookmarkToFolder()

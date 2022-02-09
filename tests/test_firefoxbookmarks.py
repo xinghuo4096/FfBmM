@@ -28,7 +28,7 @@ def test_bookmark():
     assert b1.tags == ''
     assert b1.uri == 'https://finance.eastmoney.com/a/czqyw.html'
 
-    bm.AddFolderToBookmark(bmroot.children[0], '')
+    bm.AddTagsToBookmark(bmroot.children[0], '')
 
     c1 = bmroot.children[0]
     assert isinstance(c1, firefoxbookmarks.MozPlaceContainer)

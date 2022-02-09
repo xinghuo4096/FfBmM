@@ -21,7 +21,7 @@ def test_showbm():
     bm = firefoxbookmarks.Manager()
     bm.Json2Bookmarks(s)
     bmroot = bm.root
-    bm.AddFolderToBookmark(bmroot, '')
+    bm.AddTagsToBookmark(bmroot, '')
 
     assert type(bmroot) == firefoxbookmarks.MozPlaceContainer
     assert isinstance(bmroot,firefoxbookmarks.MozPlaceContainer)
