@@ -38,8 +38,8 @@ def test_newfolder():
     assert isinstance(folder, firefoxbookmarks.MozBaseItem)
     assert len(folder.guid) > 0
     assert len(folder.guid) == 12
-    assert len(folder.dateAdded) == 16
-    assert len(folder.lastModified) == 16
+    assert len(str(folder.dateAdded)) == 16
+    assert len(str(folder.lastModified)) == 16
 
 
 def test_addbookmark():
