@@ -84,11 +84,11 @@ def test_addBookmark():
     maxid += 1
     bd2.id = maxid
     bd2.guid=firefoxbookmarks.getguid(bd2.uri)
-    #folder.AddChildern(bd2)
+    folder.AddChildern(bd2)
     if (isinstance(menu, firefoxbookmarks.MozPlaceContainer)):
-        #menu.AddChildern(folder)
+        menu.AddChildern(folder)
         pass
-    menu.AddChildern(bd2)
+    #menu.AddChildern(bd2)
     js = bms.root
     s1 = root.toJSON()
     js3 = s1  
@@ -98,10 +98,8 @@ def test_addBookmark():
     f = codecs.open(path2, "w", "utf-8")
     s = f.write(js3)
     f.close()
-
     assert len(js3) > 0
-    #TODO 修改MoaBaseItem2json 或者date_added    
-    #TODO 增加测试 增加书签 
+
 
 
 
