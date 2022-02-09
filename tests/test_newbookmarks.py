@@ -38,8 +38,8 @@ def test_newfolder():
     assert isinstance(folder, firefoxbookmarks.MozBaseItem)
     assert len(folder.guid) > 0
     assert len(folder.guid) == 12
-    assert len(folder.date_added) == 16
-    assert len(folder.last_modified) == 16
+    assert len(folder.dateAdded) == 16
+    assert len(folder.lastModified) == 16
 
 
 def test_addbookmark():
@@ -79,21 +79,20 @@ def test_addBookmark():
     news = menu.children[0]
     bd = news.children[0]
     assert isinstance(bd, MozBaseItem)
+
     bd2 = copy.deepcopy(bd)
-    bd2.id += maxid
-    # folder.AddChildern(bd)
-
+    maxid += 1
+    bd2.id = maxid
+    bd2.guid=firefoxbookmarks.getguid(bd2.uri)
+    #folder.AddChildern(bd2)
     if (isinstance(menu, firefoxbookmarks.MozPlaceContainer)):
-        # menu.AddChildern(folder)
+        #menu.AddChildern(folder)
         pass
-
+    menu.AddChildern(bd2)
     js = bms.root
     s1 = root.toJSON()
-    js3 = s1
-    #js3 = js3.replace('"tags": "",', '').replace('"keyword": "",', '').replace(
-    #    '"post_data": ""', '').replace('"post_data": null', '').replace('"postData": null', '').replace('date_added', 'dateAdded').replace('last_modified', 'lastModified').replace('type_code', 'typeCode').replace(', "children": []', '')
-    js3 = js3.replace('"tags": "",', '').replace('"keyword": "",', '')
-    js3 = js3.encode('utf-8').decode("unicode_escape")
+    js3 = s1  
+     
 
     path2 = "outdata/new-bookmarks-test.json"
     f = codecs.open(path2, "w", "utf-8")

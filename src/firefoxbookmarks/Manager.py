@@ -54,6 +54,10 @@ class Manager(object):
         self.root = root
         return self.root
 
+    def Bookmarks2Json(self, s):
+        root = json.dumps(self,)  
+        self.root = root
+        return self.root
     def AddFolderToBookmark(self, bmobj, nowfolder):
 
         if type(bmobj) == MozPlace:
