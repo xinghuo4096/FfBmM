@@ -33,7 +33,7 @@ def test_newfolder():
     assert s1 == '2022-01-25 22:15:21.073000'
 
     name = "newFolder"
-    folder = firefoxbookmarks.newfolder(name, 1, 2)
+    folder = firefoxbookmarks.new_folder(name, 1, 2)
     assert isinstance(folder, firefoxbookmarks.MozPlaceContainer)
     assert isinstance(folder, firefoxbookmarks.MozBaseItem)
     assert len(folder.guid) > 0
@@ -76,7 +76,7 @@ def test_addBookmarkToFolder():
 
     name = "newFolder-"+str(time.ctime())
     maxid += 1
-    folder = firefoxbookmarks.newfolder(name, 1, maxid)
+    folder = firefoxbookmarks.new_folder(name, 1, maxid)
     menu = root.children[0]
 
     news = menu.children[0]

@@ -27,15 +27,15 @@ def getguid(name):
     return str(x)[24:]
 
 
-def newfolder(name, index, id) -> MozPlaceContainer:
+def new_folder(name, index, id) -> MozPlaceContainer:
 
-    sdt = nowtime()    
+    sdt = now_time()    
     folder = MozPlaceContainer(getguid(name), name, index, sdt, sdt, id, 2,
                                'text/x-moz-place-container', '', [])
     return folder
 
 
-def nowtime():
+def now_time():
     t = time.time()
     sdt = int(t * pow(10, 6))
     return sdt

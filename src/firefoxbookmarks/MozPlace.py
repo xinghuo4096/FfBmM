@@ -20,10 +20,8 @@ class MozPlace(MozBaseItem):
 
     def findByUri(self, finduri: str):
         ret = False
-
         if (len(finduri) != 0) and (finduri in self.uri):
             ret = True
-
         return ret
 
     def find(self, findobj, func=findByUri):

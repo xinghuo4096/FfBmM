@@ -1,9 +1,11 @@
 import json
-
+from multiprocessing import managers
+import time
 from firefoxbookmarks.MozBaseItem import MozBaseItem
 from firefoxbookmarks.MozPlace import MozPlace
 from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
 from firefoxbookmarks.MozSeparator import MozSeparator
+from firefoxbookmarks.new_folder import new_folder
 
 
 class Manager(object):
@@ -87,6 +89,27 @@ class Manager(object):
                 else:
                     raise "unkonw type:" + type(bmobj)
 
+    def _move_bookmark(self, parent: MozPlaceContainer, findstr, folder: MozPlaceContainer, findfunc=MozPlace.findByUri):
+        for item in parent.children:
+            if isinstance(item, MozPlace):
+                if item.findByUri(findstr):
+                    parent.DelChildern(item)
+                    folder.AddChildern(item)
+            else:
+                if isinstance(item, MozPlaceContainer):
+                    self._move_bookmark(item, findstr, folder, findfunc)
+                else:
+                    pass
+
+    def move_bookmarks_to_newfolder(self, findstr):
+        assert isinstance(self.root, MozBaseItem)
+        assert isinstance(findstr, str)
+        maxid = self.MaxBookmarksId()
+        name = "NewFolder-"+str(time.ctime())
+        maxid += 1
+        folder = new_folder(name, 1, maxid)
+        self._move_bookmark(self.root, findstr, folder)
+        return folder
 
 # ------------------------
 

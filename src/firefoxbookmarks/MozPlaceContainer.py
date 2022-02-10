@@ -33,6 +33,13 @@ class MozPlaceContainer(MozBaseItem):
 
     def AddChildern(self, c):
         assert isinstance(self.children, list)
-        assert isinstance(c,MozBaseItem)
-        c.index=self.MaxChildrenIndex()+1
+        assert isinstance(c, MozBaseItem)
+        c.index = self.MaxChildrenIndex()+1
         self.children.append(c)
+
+    def DelChildern(self, c):
+        assert isinstance(self.children, list)
+        assert isinstance(c, MozBaseItem)
+        self.children.remove(c)
+    
+
