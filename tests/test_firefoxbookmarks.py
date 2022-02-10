@@ -4,7 +4,29 @@ import os
 import firefoxbookmarks
 
 
-def test_bookmark():
+def bmfindFunc(self: firefoxbookmarks.MozPlace, data: str):
+    return (data in self.title)
+
+
+def test_bmfind():
+    bm = loadbms()
+    bmroot = bm.root
+    b1 = bmroot.children[0].children[0].children[2].children[0]
+    assert isinstance(b1, firefoxbookmarks.MozPlace)
+    assert b1.tags == ''
+    assert b1.uri == 'https://finance.eastmoney.com/a/czqyw.html'
+
+    assert not b1.findByUri('baidu')
+    assert not b1.findByUri('Finance.eastmoney.com')
+    assert b1.findByUri('eastmoney')
+    assert b1.findByUri('finance')
+    assert b1.findByUri('finance.eastmoney.com')
+    assert not b1.findByUri('')
+  
+    assert not b1.find('百度',bmfindFunc)
+    assert b1.find('东方财富网',bmfindFunc)
+
+def test_LoadBookmark():
     bm = loadbms()
     bmroot = bm.root
 
@@ -85,5 +107,5 @@ def test_MaxBookmarksId():
     assert children_max_index == 2
 
 
-#----
-test_MaxBookmarksId()
+# ----
+test_bmfind()

@@ -5,6 +5,7 @@ from firefoxbookmarks.MozPlace import MozPlace
 from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
 from firefoxbookmarks.MozSeparator import MozSeparator
 
+
 class Manager(object):
     """docstring for Manager."""
     ROOTSGUID = [
@@ -55,11 +56,11 @@ class Manager(object):
         return self.root
 
     def Bookmarks2Json(self, s):
-        root = json.dumps(self,)  
+        root = json.dumps(self,)
         self.root = root
         return self.root
-    def AddTagsToBookmark(self, bmobj, nowfolder):
 
+    def AddTagsToBookmark(self, bmobj, nowfolder):
         if type(bmobj) == MozPlace:
             assert isinstance(bmobj, MozPlace)
             if nowfolder not in bmobj.tags:
@@ -87,7 +88,7 @@ class Manager(object):
                     raise "unkonw type:" + type(bmobj)
 
 
-#------------------------
+# ------------------------
 
 
 def main():

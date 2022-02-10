@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
 
-from  firefoxbookmarks.MozBaseItem import MozBaseItem
+from firefoxbookmarks.MozBaseItem import MozBaseItem
 
 
 class MozPlace(MozBaseItem):
@@ -17,6 +17,17 @@ class MozPlace(MozBaseItem):
 
         if len(self.name) < 1 and len(self.uri) > 1:
             self.name = urlparse(uri).hostname
+
+    def findByUri(self, finduri: str):
+        ret = False
+
+        if (len(finduri) != 0) and (finduri in self.uri):
+            ret = True
+
+        return ret
+
+    def find(self, findobj, func=findByUri):
+        return func(self, findobj)
 
     def dict2MozPlace(d):
         return MozPlace(
