@@ -40,6 +40,17 @@ class MozPlaceContainer(MozBaseItem):
     def DelChildern(self, c):
         assert isinstance(self.children, list)
         assert isinstance(c, MozBaseItem)
-        self.children.remove(c)
-    
+        for x in self.children:
+            assert isinstance(x, MozBaseItem)
+            if x.guid == c.guid:
+                self.children.remove(x)
 
+    def find_item(self, c):
+        assert isinstance(self.children, list)
+        assert isinstance(c, MozBaseItem)
+        ret = None
+        for x in self.children:
+            assert isinstance(x, MozBaseItem)
+            if x.guid == c.guid:
+                ret = x
+        return ret

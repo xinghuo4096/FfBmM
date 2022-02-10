@@ -1,6 +1,9 @@
+import copy
 import json
 from multiprocessing import managers
 import time
+
+from numpy import isin
 from firefoxbookmarks.MozBaseItem import MozBaseItem
 from firefoxbookmarks.MozPlace import MozPlace
 from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
@@ -89,27 +92,37 @@ class Manager(object):
                 else:
                     raise "unkonw type:" + type(bmobj)
 
-    def _move_bookmark(self, parent: MozPlaceContainer, findstr, folder: MozPlaceContainer, findfunc=MozPlace.findByUri):
-        for item in parent.children:
-            if isinstance(item, MozPlace):
-                if item.findByUri(findstr):
-                    parent.DelChildern(item)
+    def move_bookmark_digui(self,parent: MozPlaceContainer, findstr, folder: MozPlaceContainer, findfunc=MozPlace.findByUri):
+        parent_copy = copy.deepcopy(parent)
+        assert isinstance(parent_copy, MozPlaceContainer)
+        for item_copy in parent_copy.children:
+            item = parent.find_item(item_copy)
+            if isinstance(item_copy, MozPlace):
+                if item_copy.findByUri(findstr):
                     folder.AddChildern(item)
+                    parent.DelChildern(item)
+
             else:
-                if isinstance(item, MozPlaceContainer):
-                    self._move_bookmark(item, findstr, folder, findfunc)
+                if isinstance(item, MozPlaceContainer):                    
+                   self.move_bookmark_digui(item, findstr, folder, findfunc)
                 else:
                     pass
 
-    def move_bookmarks_to_newfolder(self, findstr):
-        assert isinstance(self.root, MozBaseItem)
+    def move_bookmarks_to_newfolder(self, findstr, newfoldname="NewFolder-"+str(time.ctime()), from_rootname='menu', func=MozPlace.find) -> MozPlaceContainer:
+        from_root = self.root
+        if from_rootname == 'menu':
+            from_root = self.root.children[0]
+            assert isinstance(from_root, MozPlaceContainer)
+            assert from_root.title == 'menu'
         assert isinstance(findstr, str)
+
         maxid = self.MaxBookmarksId()
-        name = "NewFolder-"+str(time.ctime())
         maxid += 1
-        folder = new_folder(name, 1, maxid)
-        self._move_bookmark(self.root, findstr, folder)
-        return folder
+        folder = new_folder(newfoldname, 1, maxid)
+        self.move_bookmark_digui(from_root, findstr, folder)
+
+        from_root.AddChildern(folder)
+        return self.root
 
 # ------------------------
 
