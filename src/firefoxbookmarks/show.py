@@ -1,3 +1,5 @@
+import codecs
+import os
 import time
 from pyecharts.charts import Tree
 from pyecharts import options as opts
@@ -6,8 +8,10 @@ from pyecharts.globals import ThemeType
 from pyecharts.globals import CurrentConfig
 
 
-def echar_ffbmtree(data, tree_depth=2, w=1280, h=720):
-    CurrentConfig.ONLINE_HOST = "https://cdn.jsdelivr.net/npm/echarts@latest/dist/"
+def echar_ffbmtree(data, outfile='outdata/ffbmtree.html', tree_depth=2, w=1280, h=720,is_cdn_jsdelivr=True):
+    if (is_cdn_jsdelivr):
+      CurrentConfig.ONLINE_HOST = "https://cdn.jsdelivr.net/npm/echarts@latest/dist/"
+
     ffbmformater = """
         function (params) {   
             showstr='';                 
@@ -27,6 +31,7 @@ def echar_ffbmtree(data, tree_depth=2, w=1280, h=720):
             return showstr
         }
         """
+    assert isinstance(outfile, str)
     localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     ctree = Tree(init_opts=opts.InitOpts(theme=ThemeType.VINTAGE,
                                          page_title='FfBmM Show' + localtime,
@@ -51,4 +56,21 @@ def echar_ffbmtree(data, tree_depth=2, w=1280, h=720):
                   trigger='item',
                   trigger_on='mousemove',
                   formatter=utils.JsCode(ffbmformater)))
-    ctree.render("outdata/ffbmtree.html")
+    ctree.render(outfile)
+
+    if os.path.isfile(outfile) and is_cdn_jsdelivr:
+       fix_cdn_jsdelivr(outfile)
+      
+
+def fix_cdn_jsdelivr(outfile):
+   f = codecs.open(outfile, "r", "utf-8")
+   s = f.read()
+   f.close()
+   assert len(s) > 0
+
+   s=s.replace('dist/themes/vintage.js','theme/vintage.min.js')
+
+   
+   f = codecs.open(outfile, "w", "utf-8")
+   s = f.write(s)
+   f.close()

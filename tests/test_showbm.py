@@ -2,8 +2,8 @@ import codecs
 import json
 import os
 import time
-import firefoxbookmarks
 
+import firefoxbookmarks
 
 localtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
@@ -24,7 +24,7 @@ def test_showbm():
     bm.AddTagsToBookmark(bmroot, '')
 
     assert type(bmroot) == firefoxbookmarks.MozPlaceContainer
-    assert isinstance(bmroot,firefoxbookmarks.MozPlaceContainer)
+    assert isinstance(bmroot, firefoxbookmarks.MozPlaceContainer)
 
     bmroot.value = 0
     bmroot.name = bmroot.root
@@ -34,7 +34,14 @@ def test_showbm():
     a2 = [a1]
     w = len(bm.folders) * 50
     h = len(bm.bookmarks) / len(bm.folders) * 450
-    firefoxbookmarks.echar_ffbmtree(a2,10,w,h)
+    outfile='outdata/ffbmtree.html'
+    firefoxbookmarks.echar_ffbmtree(data=a2)
+    assert os.path.isfile(outfile)
+    assert os.path.getsize(outfile) >0
 
+
+    
+    
+    
 
 test_showbm()

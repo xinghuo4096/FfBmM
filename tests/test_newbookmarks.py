@@ -1,7 +1,6 @@
 import codecs
 import copy
 import datetime
-import json
 import os
 import sys
 import time
@@ -96,11 +95,6 @@ def test_addBookmarkToFolder():
 
     s1 = root.toJSON()
     js3 = s1
-
-    path2 = "outdata/new-bookmarks-test.json"
-    f = codecs.open(path2, "w", "utf-8")
-    s = f.write(js3)
-    f.close()
     assert len(js3) > 0
 
 
