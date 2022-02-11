@@ -108,4 +108,9 @@ def test_MaxBookmarksId():
 
 
 # ----
-test_bmfind()
+def main():
+    test_LoadBookmark()
+    
+if __name__ == '__main__':
+    main()
+

@@ -1,6 +1,5 @@
 import copy
 import json
-from multiprocessing import managers
 import time
 
 from numpy import isin
@@ -9,6 +8,9 @@ from firefoxbookmarks.MozPlace import MozPlace
 from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
 from firefoxbookmarks.MozSeparator import MozSeparator
 from firefoxbookmarks.new_folder import new_folder
+
+# TODO 修改readme
+# TODO 修改遍历树
 
 
 class Manager(object):
@@ -21,8 +23,10 @@ class Manager(object):
         self.bookmarks = []
         self.folders = []
         self.separators = []
+
         self.maxid = -1
         self.root = []
+        self.tree = dict()
 
     def MaxBookmarksId(self):
         maxid = 0
@@ -65,6 +69,36 @@ class Manager(object):
         self.root = root
         return self.root
 
+    def traversal(self, parent: MozPlaceContainer):
+        for item in parent.children:
+            if isinstance(item, MozPlace):
+                self.tree.update({item.guid: parent.guid})
+            else:
+                if isinstance(item, MozPlaceContainer):
+                    self.tree.update({item.guid: parent.guid})
+                    self.traversal(item)
+                else:
+                    if isinstance(item, MozSeparator):
+                        pass
+                    else:
+                        raise Exception('unkonw type:'+item.guid)
+
+    def find_tree(self, guid: str):
+        self.folders.insert()
+
+    def get_root2node(self, item: MozBaseItem) -> list:
+        parent = [folder for folder in self.folders if folder.guid ==
+                  self.tree.get(item.guid, None)]
+        root2node = list()
+        while parent:
+            root2node.append(parent[0].title)
+            find = parent[0].guid
+            parent = [folder for folder in self.folders if folder.guid ==
+                      self.tree.get(find, None)]
+            print(len(parent))
+
+        return root2node
+
     def AddTagsToBookmark(self, bmobj, nowfolder):
         if type(bmobj) == MozPlace:
             assert isinstance(bmobj, MozPlace)
@@ -92,7 +126,7 @@ class Manager(object):
                 else:
                     raise "unkonw type:" + type(bmobj)
 
-    def move_bookmark_digui(self,parent: MozPlaceContainer, findstr, folder: MozPlaceContainer, findfunc=MozPlace.findByUri):
+    def _move_bookmark(self, parent: MozPlaceContainer, findstr, folder: MozPlaceContainer, findfunc=MozPlace.findByUri):
         parent_copy = copy.deepcopy(parent)
         assert isinstance(parent_copy, MozPlaceContainer)
         for item_copy in parent_copy.children:
@@ -103,8 +137,8 @@ class Manager(object):
                     parent.DelChildern(item)
 
             else:
-                if isinstance(item, MozPlaceContainer):                    
-                   self.move_bookmark_digui(item, findstr, folder, findfunc)
+                if isinstance(item, MozPlaceContainer):
+                    self._move_bookmark(item, findstr, folder, findfunc)
                 else:
                     pass
 
@@ -119,7 +153,7 @@ class Manager(object):
         maxid = self.MaxBookmarksId()
         maxid += 1
         folder = new_folder(newfoldname, 1, maxid)
-        self.move_bookmark_digui(from_root, findstr, folder)
+        self._move_bookmark(from_root, findstr, folder)
 
         from_root.AddChildern(folder)
         return self.root
