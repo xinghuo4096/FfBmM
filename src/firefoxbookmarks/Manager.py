@@ -1,17 +1,18 @@
-import copy
-from importlib.resources import path
+import codecs
 import json
 import time
-
-from numpy import isin
 from firefoxbookmarks.MozBaseItem import MozBaseItem
 from firefoxbookmarks.MozPlace import MozPlace
 from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
 from firefoxbookmarks.MozSeparator import MozSeparator
 from firefoxbookmarks.new_folder import new_folder
+from firefoxbookmarks.move_folder import move_bookmark_with_folder, move_bookmark_without_folder
+
 
 # TODO 修改readme
-# TODO 重构代码
+# TODO 删除list和for联合时，经验
+# for item in parent.Childern:
+#    parent.Childern.remove(item)
 
 
 class Manager(object):
@@ -54,7 +55,8 @@ class Manager(object):
             self.bookmarks.append(ret)
         else:
             if t1 == 'text/x-moz-place-container':
-                ret = MozPlaceContainer.dict2MozPlaceContainer(data)
+                ret = MozPlaceContainer.dict2MozPlaceContainer(
+                    data)
                 self.folders.append(ret)
             else:
                 if t1 == "text/x-moz-place-separator":
@@ -66,11 +68,6 @@ class Manager(object):
 
     def Json2Bookmarks(self, s):
         root = json.loads(s, object_hook=self.BookmarksFacory)
-        self.root = root
-        return self.root
-
-    def Bookmarks2Json(self, s):
-        root = json.dumps(self,)
         self.root = root
         return self.root
 
@@ -139,23 +136,7 @@ class Manager(object):
                 else:
                     raise "unkonw type:" + type(bmobj)
 
-    def _move_bookmark(self, parent: MozPlaceContainer, findstr, folder: MozPlaceContainer, findfunc=MozPlace.findByUri):
-        parent_copy = copy.deepcopy(parent)
-        assert isinstance(parent_copy, MozPlaceContainer)
-        for item_copy in parent_copy.children:
-            item = parent.find_item(item_copy)
-            if isinstance(item_copy, MozPlace):
-                if item_copy.findByUri(findstr):
-                    folder.AddChildern(item)
-                    parent.DelChildern(item)
-
-            else:
-                if isinstance(item, MozPlaceContainer):
-                    self._move_bookmark(item, findstr, folder, findfunc)
-                else:
-                    pass
-
-    def move_bookmarks_to_newfolder(self, findstr, newfoldname="NewFolder-"+str(time.ctime()), from_rootname='menu', func=MozPlace.find) -> MozPlaceContainer:
+    def movefunc_without_folder(self, findstr, newfoldname="NewFolder-"+str(time.ctime()), from_rootname='menu', func=MozPlace.find) -> MozPlaceContainer:
         from_root = self.root
         if from_rootname == 'menu':
             from_root = self.root.children[0]
@@ -166,11 +147,34 @@ class Manager(object):
         maxid = self.get_maxid()
         maxid += 1
         folder = new_folder(newfoldname, 1, maxid)
-        self._move_bookmark(from_root, findstr, folder)
+        move_bookmark_without_folder(
+            from_root, findstr, folder)
 
         from_root.AddChildern(folder)
         return self.root
 
+    def movefunc_with_folder(self, findstr, newfoldname="NewFolder-"+str(time.ctime()), from_rootname='menu', func=MozPlace.find):
+        return move_bookmark_with_folder(
+            self, findstr, newfoldname, from_rootname, func)
+
+    def save_firefoxbookmarksjson(self, outfile='outdata/new-bookmarks-test.json'):
+        js1 = self.root.toJSON()
+        assert len(js1) > 0
+
+        path1 = outfile
+        f = codecs.open(path1, "w", "utf-8")
+        s = f.write(js1)
+        f.close()
+
+    def loadbms(self, source='tests/bookmarks-test.json'):
+        f = codecs.open(source, "r", "utf-8")
+        s = f.read()
+        f.close()
+        assert len(s) > 0
+        self.Json2Bookmarks(s)
+        self.AddTagsToBookmark(self.root, '')
+        self.traversal(self.root)
+        return self
 # ------------------------
 
 

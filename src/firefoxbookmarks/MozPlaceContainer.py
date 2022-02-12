@@ -45,7 +45,7 @@ class MozPlaceContainer(MozBaseItem):
             if x.guid == c.guid:
                 self.children.remove(x)
 
-    def find_item(self, c):
+    def find_byguid(self, c):
         assert isinstance(self.children, list)
         assert isinstance(c, MozBaseItem)
         ret = None
