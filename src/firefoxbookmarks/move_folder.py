@@ -5,20 +5,15 @@ from firefoxbookmarks.MozPlace import MozPlace
 from firefoxbookmarks.MozPlaceContainer import MozPlaceContainer
 from firefoxbookmarks.new_folder import getguid, new_folder
 
- 
- 
- 
-
 
 # TODO 和manager数据耦合问题。本次版本不修改。
 def move_bookmark_with_folder(bms, findstr: str, newfoldname, from_rootname, find_func=MozPlace.find):
 
     from firefoxbookmarks.Manager import Manager
 
-    assert isinstance(bms,Manager)
+    assert isinstance(bms, Manager)
     bms_copy = copy.deepcopy(bms)
     maxid = bms_copy.get_maxid()
-    
 
     delitem = [bm for bm in bms.bookmarks if find_func(bm, findstr)]
     for item in delitem:
@@ -46,7 +41,7 @@ def move_bookmark_with_folder(bms, findstr: str, newfoldname, from_rootname, fin
             folder.title = folder.root
 
         folder.root = ''
-        folder.guid =getguid(folder.title)
+        folder.guid = getguid(folder.title)
 
     menu = bms.root.children[0]
     assert isinstance(menu, MozPlaceContainer)

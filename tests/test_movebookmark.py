@@ -29,10 +29,10 @@ def test_movebm():
     assert isinstance(bd, MozPlace)
     assert bd.uri == 'http://news.baidu.com/'
     assert 'news' in bd.tags.lower()
-    print(bd.tags.lower())
+  
     assert '百度新闻' in bd.title
 
-    folder = bms.move_bookmarks_to_newfolder('baidu')
+    folder = bms.movefunc_without_folder(findstr='baidu')
 
     assert isinstance(root, MozPlaceContainer)
     assert isinstance(folder, MozPlaceContainer)
@@ -52,7 +52,7 @@ def test_movebm():
     assert '新浪网' in sina.title
 
 
-def test_move_bookmarks_to_newfolder():
+def test_movefunc_without_folder():
     bms = loadbms()
 
     root = bms.root
@@ -77,7 +77,7 @@ def test_move_bookmarks_to_newfolder():
     assert '保定1月份天气' in tq1.title
     assert '北京历史气温' in tq2.title
 
-    bms.move_bookmarks_to_newfolder('tianqi.com')
+    bms.movefunc_without_folder(findstr='tianqi.com')
     assert isinstance(bms.root, MozPlaceContainer)
 
     root = bms.root
@@ -108,7 +108,6 @@ def test_move_bookmarks_to_newfolder():
 
     js1 = bms.root.toJSON()
     assert len(js1) > 0
- 
 
 
 def loadbms() -> firefoxbookmarks.Manager:
@@ -125,4 +124,4 @@ def loadbms() -> firefoxbookmarks.Manager:
 
 
 # -----------
-test_move_bookmarks_to_newfolder()
+test_movefunc_without_folder()

@@ -10,6 +10,7 @@ from firefoxbookmarks.move_folder import move_bookmark_with_folder, move_bookmar
 
 
 # TODO 修改readme
+# TODO 重构2，解决import问题
 # TODO 删除list和for联合时，经验
 # for item in parent.Childern:
 #    parent.Childern.remove(item)
@@ -161,6 +162,17 @@ class Manager(object):
         js1 = self.root.toJSON()
         assert len(js1) > 0
 
+        
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
         path1 = outfile
         f = codecs.open(path1, "w", "utf-8")
         s = f.write(js1)
