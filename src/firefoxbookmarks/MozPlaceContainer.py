@@ -18,7 +18,7 @@ class MozPlaceContainer(MozBaseItem):
 
         a1 = d.get('root', '')
         a2 = d.get('children', [])
-        return MozPlaceContainer(d['guid'], d['title'], d['index'],
+        return MozPlaceContainer(d['guid'], d.get('title',''), d['index'],
                                  d['dateAdded'], d['lastModified'], d['id'],
                                  d['typeCode'], d['type'], d.get('root', ''),
                                  d.get('children', []))

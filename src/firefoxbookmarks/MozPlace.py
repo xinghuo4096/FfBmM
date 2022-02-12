@@ -30,7 +30,7 @@ class MozPlace(MozBaseItem):
     def dict2MozPlace(d):
         return MozPlace(
             d['guid'],
-            d['title'],
+            d.get('title',''),
             d['index'],
             d['dateAdded'],
             d['lastModified'],

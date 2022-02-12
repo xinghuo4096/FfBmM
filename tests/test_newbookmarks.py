@@ -71,7 +71,7 @@ def test_addBookmarkToFolder():
     bms.AddTagsToBookmark(root,'')
 
     assert isinstance(root, firefoxbookmarks.MozPlaceContainer)
-    maxid = bms.MaxBookmarksId()
+    maxid = bms.get_maxid()
 
     name = "newFolder-"+str(time.ctime())
     maxid += 1

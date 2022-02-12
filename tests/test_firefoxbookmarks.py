@@ -79,7 +79,7 @@ def loadbms() -> firefoxbookmarks.Manager:
 
 def test_MaxBookmarksId():
     bms = loadbms()
-    maxid = bms.MaxBookmarksId()
+    maxid = bms.get_maxid()
     assert maxid == 36
 
     root = bms.root

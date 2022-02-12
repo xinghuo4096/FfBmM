@@ -1,4 +1,5 @@
 import copy
+from importlib.resources import path
 import json
 import time
 
@@ -10,13 +11,17 @@ from firefoxbookmarks.MozSeparator import MozSeparator
 from firefoxbookmarks.new_folder import new_folder
 
 # TODO 修改readme
-# TODO 修改遍历树
+# TODO 重构代码
 
 
 class Manager(object):
     """docstring for Manager."""
-    ROOTSGUID = [
-        "menu________", "toolbar_____", "unfiled_____", "mobile______"
+    PLACEROOT = 'root________'
+    ROOTS_GUID = [
+        "root________", "menu________", "toolbar_____", "unfiled_____", "mobile______"
+    ]
+    ROOTS_ROOT = [
+        "placesRoot", "bookmarksMenuFolder", "toolbarFolder", "unfiledBookmarksFolder", "mobileFolder"
     ]
 
     def __init__(self):
@@ -28,7 +33,7 @@ class Manager(object):
         self.root = []
         self.tree = dict()
 
-    def MaxBookmarksId(self):
+    def get_maxid(self):
         maxid = 0
         for item in self.folders:
             if int(item.id) > maxid:
@@ -83,20 +88,28 @@ class Manager(object):
                     else:
                         raise Exception('unkonw type:'+item.guid)
 
-    def find_tree(self, guid: str):
-        self.folders.insert()
+    def find_treenode(self, guid: str):
+        item = [b for b in self.bookmarks if b.guid == guid]
+        if not item:
+            item = [f for f in self.folders if f.guid == guid]
+        return item
 
     def get_root2node(self, item: MozBaseItem) -> list:
         parent = [folder for folder in self.folders if folder.guid ==
                   self.tree.get(item.guid, None)]
         root2node = list()
         while parent:
-            root2node.append(parent[0].title)
-            find = parent[0].guid
+            find = parent[0]
+            if find.guid in self.ROOTS_GUID:
+                root2node.append(find.root)
+            else:
+                if find.title:
+                    root2node.append(find.title)
+                else:
+                    pass
             parent = [folder for folder in self.folders if folder.guid ==
-                      self.tree.get(find, None)]
-            print(len(parent))
-
+                      self.tree.get(find.guid, None)]
+        root2node = root2node[::-1]
         return root2node
 
     def AddTagsToBookmark(self, bmobj, nowfolder):
@@ -112,8 +125,8 @@ class Manager(object):
                 assert isinstance(bmobj, MozPlaceContainer)
 
                 if (bmobj.guid
-                        not in Manager.ROOTSGUID) and (bmobj.title
-                                                       not in nowfolder):
+                        not in Manager.ROOTS_GUID) and (bmobj.title
+                                                        not in nowfolder):
                     if nowfolder == '':
                         nowfolder = bmobj.title
                     else:
@@ -150,7 +163,7 @@ class Manager(object):
             assert from_root.title == 'menu'
         assert isinstance(findstr, str)
 
-        maxid = self.MaxBookmarksId()
+        maxid = self.get_maxid()
         maxid += 1
         folder = new_folder(newfoldname, 1, maxid)
         self._move_bookmark(from_root, findstr, folder)
