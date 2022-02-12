@@ -10,8 +10,7 @@ from firefoxbookmarks.move_folder import move_bookmark_with_folder, move_bookmar
 
 
 # TODO 修改readme
-# TODO 重构2，解决import问题
-# TODO 删除list和for联合时，经验
+# TODO 完成一篇经验，for删除list
 # for item in parent.Childern:
 #    parent.Childern.remove(item)
 
@@ -137,7 +136,7 @@ class Manager(object):
                 else:
                     raise "unkonw type:" + type(bmobj)
 
-    def movefunc_without_folder(self, findstr, newfoldname="NewFolder-"+str(time.ctime()), from_rootname='menu', func=MozPlace.find) -> MozPlaceContainer:
+    def movefunc_without_folder(self, findstr, newfoldname="NewFolder-"+str(time.ctime()), from_rootname='menu', func=MozPlace.find):
         from_root = self.root
         if from_rootname == 'menu':
             from_root = self.root.children[0]
@@ -152,7 +151,7 @@ class Manager(object):
             from_root, findstr, folder)
 
         from_root.AddChildern(folder)
-        return self.root
+        return self
 
     def movefunc_with_folder(self, findstr, newfoldname="NewFolder-"+str(time.ctime()), from_rootname='menu', func=MozPlace.find):
         return move_bookmark_with_folder(
@@ -162,17 +161,6 @@ class Manager(object):
         js1 = self.root.toJSON()
         assert len(js1) > 0
 
-        
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
         path1 = outfile
         f = codecs.open(path1, "w", "utf-8")
         s = f.write(js1)

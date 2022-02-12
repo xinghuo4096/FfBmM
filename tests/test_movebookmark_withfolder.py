@@ -59,20 +59,21 @@ def test_move_bookmark_with_foler():
     menu = newfolder.children[0]
     toolbar = newfolder.children[1]
     unfiled = newfolder.children[2]
-    assert isinstance(menu,MozPlaceContainer)
-    assert isinstance(toolbar,MozPlaceContainer)
-    assert isinstance(unfiled,MozPlaceContainer)
-    assert menu.title.lower()==bms.ROOTS_ROOT[1].lower()
-    assert toolbar.title.lower()==bms.ROOTS_ROOT[2].lower()
-    assert unfiled.title.lower()==bms.ROOTS_ROOT[3].lower()
+    assert isinstance(menu, MozPlaceContainer)
+    assert isinstance(toolbar, MozPlaceContainer)
+    assert isinstance(unfiled, MozPlaceContainer)
+    assert menu.title.lower() == bms.ROOTS_ROOT[1].lower()
+    assert toolbar.title.lower() == bms.ROOTS_ROOT[2].lower()
+    assert unfiled.title.lower() == bms.ROOTS_ROOT[3].lower()
 
-    news=menu.children[0]
-    assert news.title.lower()=='news'
+    news = menu.children[0]
+    assert news.title.lower() == 'news'
 
-    bd=news.children[0]
-    assert isinstance(bd,MozPlace)
+    bd = news.children[0]
+    assert isinstance(bd, MozPlace)
     assert '百度新闻' in bd.title
-    assert bd.uri=='http://news.baidu.com/'
+    assert bd.uri == 'http://news.baidu.com/'
+
 
 def loadbms() -> Manager:
     path1 = "z:/test/a.json"
