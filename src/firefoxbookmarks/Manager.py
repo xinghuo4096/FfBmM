@@ -9,7 +9,6 @@ from firefoxbookmarks.new_folder import new_folder
 from firefoxbookmarks.move_folder import move_bookmark_with_folder, move_bookmark_without_folder
 
 # TODO 修改readme
-# TODO 完成一篇经验，for删除list
 # for item in parent.Childern:
 #    parent.Childern.remove(item)
 
