@@ -4,23 +4,81 @@
 
 FfBmM firefox bookmarks move app。
 
-## Show
+## Move bookmarks
+
+Running `show_firefoxbookmark_move.py` in the src directory will read `bookmarks-show.json` from the same directory by defaultand generates `with.json` `without.json` in the same directory.
+
+### Move your own bookmarks
+
+- `bookmarks-show.json` comes from with firefox backup, you can use backup and restore to change bookmarks.
+- Modify the program `show_firefoxbookmark_move.py` to complete the way you need to move.
+- Special note
+  - json file , general source with firefox manage bookmarks  backup function
+    `bms.loadbms('bookmarks-show.json')`
+    - The keyword to be moved
+    `bms = bms.movefunc_without_folder('tianqi.com')`
+    - Save the file, available from firefox manage bookmarks restore function
+    `bms.save_firefoxbookmarksjson('without.json')`
+
+### firefire manage bookmarks
+
+![begin](moveshow_begin_en1.jpg)
+
+![begin](moveshow_begin_en2.jpg)
+
+### Don't directory move effect
+
+Don't directory, all matched bookmarks to move to the same directory, directory information written to the tags.
+
+![移动方式1](moveshow_without1.jpg)
+
+![移动方式1tags](moveshow_without2.jpg)
+
+### Include original directory move effect
+
+Include directory case, all match bookmarks to move to a top-level directory, directory information written to the tags.
+
+![移动方式2](moveshow_with1.jpg)
+
+![移动方式2](moveshow_with2.jpg)
+
+![移动方式2](moveshow_with3.jpg)
+
+![移动方式2](moveshow_with4.jpg)
 
 ### ShowBookmark
 
-Run **test_showbookmarks.py** in the **test** folder.
-It will generate an html file in the **outdata** folder.
-Open it in a browser and you will see the graphical display of the bookmarks
-The effect is similar to the following screenshot
+Run `show_firefoxbookmark_tree.py` in the src directory It will read the 'bookmarks-show.json' in the same directory by default in the same directory to generate `simple_ffbmtree.html` and `show2_ffbmtree.html` html files.
+use your browser firefox to open these two files to see the results.
 
 - The default number of bookmark levels is 3
 ![ShowBookmark](show1.jpg)
 - Expanding collapsed bookmarks
 ![ShowBookmark](show2.jpg)
+
+## My nearly 1500 bookmarks display effect
+
 - Display effect of about 1500 bookmarks
-![1500Bookmark](show3.jpg)
-Detail 
-![1500Bookmark](show4.jpg)
+
+![1500 bookmarks effect](show3.jpg)
+
+Details
+![1500 bookmarks effect](show4.jpg)
+
+## My nearly 1500 bookmarks after moving the effect
+
+*Blurred processing of personal parts, for reference only.*
+
+- not including folders.
+
+![1500 bookmark effects](moveshow_my1.jpg)
+
+- including folders.
+
+![1500 bookmarks effect](moveshow_my3.jpg)
+
+- tags section.
+![1500 bookmarks effect](moveshow_my2.jpg)
 
 ## Cause
 

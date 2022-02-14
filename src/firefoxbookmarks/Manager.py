@@ -8,10 +8,6 @@ from firefoxbookmarks.MozSeparator import MozSeparator
 from firefoxbookmarks.new_folder import new_folder
 from firefoxbookmarks.move_folder import move_bookmark_with_folder, move_bookmark_without_folder
 
-# TODO 修改readme
-# for item in parent.Childern:
-#    parent.Childern.remove(item)
-
 
 class Manager(object):
     """docstring for Manager."""

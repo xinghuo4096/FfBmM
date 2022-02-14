@@ -4,21 +4,86 @@
 
 FfBmM firefox bookmarks move移动工具。
 
-## 效果
+## 移动书签
 
-### 展示书签
+运行src目录下的`show_firefoxbookmark_move.py`会默认读取同目录下的`bookmarks-show.json`
+并在同目录下生成 `with.json` `without.json`
 
-运行test目录下的test_showbookmarks.py
-在文件夹outdata下会生成html，浏览器运行效果
+### 移动自己的书签
+
+- `bookmarks-show.json`来自与firefox备份，可以用备份和恢复来改变书签。
+- 修改程序`show_firefoxbookmark_move.py`，完成你需要的移动方式。
+- 特别说明
+  - json文件，一般来源与firefox管理书签的备份功能
+    `bms.loadbms('bookmarks-show.json')`
+    - 需要移动的关键字
+    `bms = bms.movefunc_without_folder('tianqi.com')`
+    - 保存文件，可从firefox管理书签的恢复功能
+    `bms.save_firefoxbookmarksjson('without.json')`
+
+### firefire的管理书签
+
+![开始](moveshow_begin1.jpg)
+
+![开始](moveshow_begin2.jpg)
+
+### 不要原书签文件夹信息的移动效果
+
+不要文件夹，所有符合条件的书签移动到同一个文件夹，原文件夹信息写入标签。
+
+![移动方式1](moveshow_without1.jpg)
+
+![移动方式1tags](moveshow_without2.jpg)
+
+### 包含原书签文件夹的移动效果
+
+包含原书签文件夹，所有符合条件的书签移动到一个文件夹，原文件夹信息写入标签。
+
+![移动方式2](moveshow_with1.jpg)
+
+![移动方式2](moveshow_with2.jpg)
+
+![移动方式2](moveshow_with3.jpg)
+
+![移动方式2](moveshow_with4.jpg)
+
+## 展示书签
+
+运行src目录下的`show_firefoxbookmark_tree.py`会默认读取同目录下的`bookmarks-show.json`
+在同目录下生成`simple_ffbmtree.html`和`show2_ffbmtree.html`html文件。
+用浏览器firefox打开这个两个文件，查看效果。
 
 - 默认展现书签层数为3
+
 ![展示书签效果](show1.jpg)
+
 - 展开折叠的书签
+
 ![展示书签效果](show2.jpg)
+
+## 我的近1500书签展示效果
+
 - 大约1500个书签的展示效果
+
 ![1500书签效果](show3.jpg)
-细节效果
+
+细节
 ![1500书签效果](show4.jpg)
+
+## 我的近1500书签移动后效果
+
+*模糊处理个人部分，仅供参考。*
+
+- 不包含文件夹。
+
+![1500书签效果](moveshow_my1.jpg)
+
+- 包含文件夹。
+
+![1500书签效果](moveshow_my3.jpg)
+
+- tags部分。
+![1500书签效果](moveshow_my2.jpg)
 
 ## 起因
 
