@@ -4,15 +4,23 @@
 
 FfBmM firefox bookmarks move移动工具。
 
-## 移动书签
+## 功能1：移动书签
 
 运行src目录下的`show_firefoxbookmark_move.py`会默认读取同目录下的`bookmarks-show.json`
 并在同目录下生成 `with.json` `without.json`
 
-### 移动自己的书签
+### 如何移动移动自己的书签
+
+#### 基础知识：firefox的管理书签所在位置
+
+![开始](moveshow_begin1.jpg)
+
+![开始](moveshow_begin2.jpg)
+
+#### 具体步骤
 
 - `bookmarks-show.json`来自与firefox备份，可以用备份和恢复来改变书签。
-- 修改程序`show_firefoxbookmark_move.py`，完成你需要的移动方式。
+- 修改程序`show_firefoxbookmark_move.py`，完成你需要的移动。
 - 特别说明
   - json文件，一般来源与firefox管理书签的备份功能
     `bms.loadbms('bookmarks-show.json')`
@@ -21,13 +29,7 @@ FfBmM firefox bookmarks move移动工具。
     - 保存文件，可从firefox管理书签的恢复功能
     `bms.save_firefoxbookmarksjson('without.json')`
 
-### firefire的管理书签
-
-![开始](moveshow_begin1.jpg)
-
-![开始](moveshow_begin2.jpg)
-
-### 不要原书签文件夹信息的移动效果
+### 移动效果展示。舍弃原书签文件夹信息
 
 不要文件夹，所有符合条件的书签移动到同一个文件夹，原文件夹信息写入标签。
 
@@ -35,7 +37,7 @@ FfBmM firefox bookmarks move移动工具。
 
 ![移动方式1tags](moveshow_without2.jpg)
 
-### 包含原书签文件夹的移动效果
+### 移动效果展示。包含原书签文件夹
 
 包含原书签文件夹，所有符合条件的书签移动到一个文件夹，原文件夹信息写入标签。
 
@@ -45,9 +47,11 @@ FfBmM firefox bookmarks move移动工具。
 
 ![移动方式2](moveshow_with3.jpg)
 
+### 移动效果展示。原书签文件夹信息，写入标签tags
+
 ![移动方式2](moveshow_with4.jpg)
 
-## 展示书签
+## 功能2：展示书签
 
 运行src目录下的`show_firefoxbookmark_tree.py`会默认读取同目录下的`bookmarks-show.json`
 在同目录下生成`simple_ffbmtree.html`和`show2_ffbmtree.html`html文件。
