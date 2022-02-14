@@ -29,13 +29,14 @@ def test_movebm():
     assert isinstance(bd, MozPlace)
     assert bd.uri == 'http://news.baidu.com/'
     assert 'news' in bd.tags.lower()
-  
+
     assert '百度新闻' in bd.title
 
-    folder = bms.movefunc_without_folder(findstr='baidu')
+    bms2 = bms.movefunc_without_folder(findstr='baidu')
+    bms2root = bms2.root
 
     assert isinstance(root, MozPlaceContainer)
-    assert isinstance(folder, MozPlaceContainer)
+    assert isinstance(bms2root, MozPlaceContainer)
     assert root is folder
 
     menu = folder.children[0]

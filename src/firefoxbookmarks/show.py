@@ -1,4 +1,5 @@
 import codecs
+import json
 import os
 import time
 from pyecharts.charts import Tree
@@ -7,10 +8,26 @@ from pyecharts.commons import utils
 from pyecharts.globals import ThemeType
 from pyecharts.globals import CurrentConfig
 
+import firefoxbookmarks
 
-def echar_ffbmtree(data, outfile='outdata/ffbmtree.html', tree_depth=2, w=1280, h=720,is_cdn_jsdelivr=True):
+
+def simple_ffbmtree(infile='tests/bookmarks-show.json', outfile='outdata/ffbmtree.html'):
+    bms = firefoxbookmarks.Manager()
+    assert isinstance(bms, firefoxbookmarks.Manager)
+    bms.loadbms('bookmarks-show.json')
+    assert isinstance(bms.root, firefoxbookmarks.MozBaseItem)
+
+    listjson = [json.loads(bms.root.toJSON())]
+
+    w = len(bms.folders) * 100
+    h = len(bms.bookmarks) / len(bms.folders) * 450
+    echar_ffbmtree(data=listjson, outfile=outfile,
+                   tree_depth=2, w=w, h=h, is_cdn_jsdelivr=True)
+
+
+def echar_ffbmtree(data: list, infile='', outfile='outdata/ffbmtree.html', tree_depth=2, w=1280, h=720, is_cdn_jsdelivr=True):
     if (is_cdn_jsdelivr):
-      CurrentConfig.ONLINE_HOST = "https://cdn.jsdelivr.net/npm/echarts@latest/dist/"
+        CurrentConfig.ONLINE_HOST = "https://cdn.jsdelivr.net/npm/echarts@latest/dist/"
 
     ffbmformater = """
         function (params) {   
@@ -59,18 +76,17 @@ def echar_ffbmtree(data, outfile='outdata/ffbmtree.html', tree_depth=2, w=1280, 
     ctree.render(outfile)
 
     if os.path.isfile(outfile) and is_cdn_jsdelivr:
-       fix_cdn_jsdelivr(outfile)
-      
+        fix_cdn_jsdelivr(outfile)
+
 
 def fix_cdn_jsdelivr(outfile):
-   f = codecs.open(outfile, "r", "utf-8")
-   s = f.read()
-   f.close()
-   assert len(s) > 0
+    f = codecs.open(outfile, "r", "utf-8")
+    s = f.read()
+    f.close()
+    assert len(s) > 0
 
-   s=s.replace('dist/themes/vintage.js','theme/vintage.min.js')
+    s = s.replace('dist/themes/vintage.js', 'theme/vintage.min.js')
 
-   
-   f = codecs.open(outfile, "w", "utf-8")
-   s = f.write(s)
-   f.close()
+    f = codecs.open(outfile, "w", "utf-8")
+    s = f.write(s)
+    f.close()

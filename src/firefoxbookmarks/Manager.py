@@ -8,7 +8,7 @@ from firefoxbookmarks.MozSeparator import MozSeparator
 from firefoxbookmarks.new_folder import new_folder
 from firefoxbookmarks.move_folder import move_bookmark_with_folder, move_bookmark_without_folder
 
-
+# TODO 增加show的演示，数据在当前目录，输出在当前目录
 # TODO 修改readme
 # TODO 完成一篇经验，for删除list
 # for item in parent.Childern:
