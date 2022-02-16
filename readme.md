@@ -11,7 +11,7 @@ FfBmM firefox bookmarks move移动工具。
 
 ### 如何移动移动自己的书签
 
-#### 基础知识：firefox的管理书签所在位置
+#### 基础知识：firefox的“管理书签”所在位置
 
 ![开始](moveshow_begin1.jpg)
 
@@ -31,7 +31,7 @@ FfBmM firefox bookmarks move移动工具。
 
 ### 移动效果展示。舍弃原书签文件夹信息
 
-不要文件夹，所有符合条件的书签移动到同一个文件夹，原文件夹信息写入标签。
+不包含文件夹，所有符合条件的书签移动到同一个文件夹，原文件夹信息写入标签。
 
 ![移动方式1](moveshow_without1.jpg)
 
@@ -72,6 +72,7 @@ FfBmM firefox bookmarks move移动工具。
 ![1500书签效果](show3.jpg)
 
 细节
+
 ![1500书签效果](show4.jpg)
 
 ## 我的近1500书签移动后效果
