@@ -11,7 +11,7 @@ def main():
     # show two
 
     bms = firefoxbookmarks.Manager()
-    bms.loadbms('z:/test/1500.json')
+    bms.loadbms('bookmarks-show.json')
 
     listjson = [json.loads(bms.root.toJSON())]
     w = len(bms.folders) * 100
